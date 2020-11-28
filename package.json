@@ -24,7 +24,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "postbuild": "npm link",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -51,6 +51,7 @@
     "@nestjs/config": "^0.6.0",
     "@nestjs/core": "^7.5.5",
     "@nestjs/platform-express": "^7.5.5",
+    "aws-sdk": "^2.799.0",
     "chalk": "^4.1.0",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
@@ -98,12 +99,20 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "@lib/queue/(.*)": "<rootDir>/libs/queue/src/$1",
+      "@lib/queue": "<rootDir>/libs/queue/src"
+    }
   }
 }

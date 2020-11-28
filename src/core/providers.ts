@@ -1,4 +1,5 @@
 import { ListCommands, InitApplicationSetup } from './console';
+import { RunQueueWorker } from './console/commands/RunQueueWorker';
 import { DatabaseRepository } from './db';
 import { EventExplorer } from './events';
 import { BaseValidator, ExistsConstraint } from './validator';
@@ -8,6 +9,7 @@ import { IsValueFromConfigConstraint } from './validator/decorators/isValueFromC
 const providers = [
   // commands
   ListCommands,
+  RunQueueWorker,
   InitApplicationSetup,
 
   // event explore

@@ -7,6 +7,7 @@ import * as rateLimit from 'express-rate-limit';
 import { RequestGuard, ExceptionFilter, TimeoutInterceptor } from '@app/core';
 import { ConfigService } from '@nestjs/config';
 import { CanBeAuthenticated, UserModule, UserService } from '@app/user';
+import { Dispatch } from '@lib/queue';
 
 async function bootstrap() {
   const app = await NestFactory.create(HttpModule);
@@ -20,7 +21,7 @@ async function bootstrap() {
   app.use(rateLimit({ windowMs: 60, max: 50 }));
 
   // guards
-  app.useGlobalGuards(new RequestGuard(),);
+  app.useGlobalGuards(new RequestGuard());
 
   // filters
   const { httpAdapter } = app.get(HttpAdapterHost);
@@ -31,6 +32,13 @@ async function bootstrap() {
 
   const config = app.get(ConfigService);
   await app.listen(config.get('app.port'));
+
+  Dispatch({
+    job: 'SAMPLE_JOB',
+    data: { name: 'Sarthak and Bhavesh' },
+    delay: 10,
+    tries: 2,
+  });
 }
 
 bootstrap();

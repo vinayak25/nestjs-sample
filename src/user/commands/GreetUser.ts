@@ -5,12 +5,9 @@ import { Injectable } from '@nestjs/common';
 @Command('user:greet', { desc: 'Command to create a user' })
 export class GreetUser extends BaseCommand {
   public async handle(): Promise<void> {
-    // ask for input from the client
-    const name = await this.ask('What is your name?');
-
     // print success message
     this.success(
-      `Hello ${name}, enjoy building cool stuff using this boilerplate! 😁`,
+      `Hello there, enjoy building cool stuff using this boilerplate! 😁`,
     );
 
     this.table([
@@ -18,8 +15,6 @@ export class GreetUser extends BaseCommand {
       { name: 'User 2', designation: 'Software Engineer L1' },
     ]);
 
-    // print info message
-    this.info('User Greeted');
     return;
   }
 
@@ -27,7 +22,7 @@ export class GreetUser extends BaseCommand {
     return {
       name: {
         desc: 'Name of the person to be greeted!',
-        req: true,
+        req: false,
       },
     };
   }

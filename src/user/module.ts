@@ -4,6 +4,7 @@ import { UserService } from './services';
 import { USER_REPOSITORY } from './constants';
 import { UserRepository } from './repositories';
 import { GreetUser } from './commands';
+import { UserJobs } from './jobs/User';
 
 @Module({
   imports: [HttpModule],
@@ -11,6 +12,7 @@ import { GreetUser } from './commands';
   providers: [
     UserService,
     GreetUser,
+    UserJobs,
     { provide: USER_REPOSITORY, useClass: UserRepository },
   ],
 })
